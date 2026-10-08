@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pit Wall — Telemetry</title>
+<link rel="stylesheet" href="/static/vendor/uPlot.min.css">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="rig-header">
+  <div class="rig-title">Pit Wall <span>/</span> Telemetry</div>
+  <div class="rig-status">
+    <span class="dot dead" id="connDot"></span>
+    <span id="connLabel">connecting</span>
+    <span style="color: var(--hairline-bright)">|</span>
+    <span>data age</span>
+    <span class="age-value" id="ageValue">—</span>
+  </div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="live">Live</button>
+    <button class="tab-btn" data-view="compare">Driver comparison</button>
+  </nav>
+</header>
+
+<div class="rig-body">
+
+  <!-- ============================================================= LIVE VIEW -->
+  <div class="view active flex" id="view-live" style="width:100%;">
+    <aside class="rail">
+      <h3>Driver stint</h3>
+      <div id="stintSlots"></div>
+
+      <div class="window-picker">
+        <h3 style="margin-top:18px;">Rolling window</h3>
+        <select id="windowSelect">
+          <option value="30">30 seconds</option>
+          <option value="60" selected>60 seconds</option>
+          <option value="120">2 minutes</option>
+          <option value="300">5 minutes</option>
+        </select>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <div class="toolbar" style="margin-bottom: 12px;">
+        <div class="metric-picker" id="metricPicker"></div>
+        <button class="btn" id="addChartBtn">Add chart</button>
+      </div>
+      <div id="chartPanels"></div>
+    </main>
+  </div>
+
+  <!-- ========================================================= COMPARE VIEW -->
+  <div class="view" id="view-compare" style="width:100%;">
+    <aside class="rail">
+      <h3>Stints (pick up to 6)</h3>
+      <table class="stint-table" id="stintTable">
+        <thead><tr><th></th><th>Driver</th><th>Duration</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>Metrics to overlay</h3>
+      <div class="metric-picker" id="compareMetricPicker" style="margin-bottom: 14px;"></div>
+
+      <button class="btn" id="compareBtn" style="width:100%;">Compare selected stints</button>
+    </aside>
+
+    <main class="main-area">
+      <div class="section-label">Each channel below overlays every selected stint, time-aligned to stint start, so drivers can be compared lap-for-lap regardless of when they actually drove.</div>
+      <div id="comparePanels"></div>
+    </main>
+  </div>
+
+</div>
+
+<script src="/static/vendor/uPlot.iife.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
